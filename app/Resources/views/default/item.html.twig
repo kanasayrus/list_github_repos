@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="content">
+        <div id="div_pagination">
+            <input type="hidden" id="txt_rowid" value="0">
+            <input type="hidden" id="txt_allcount" value="0">
+            {%  if (page>1)  %}
+                <a href="?page={{ page-1 }}" class="button" value="Previous" id="but_prev">Previous</a>
+            {%  endif  %}
+            <a href="?page={{ page+1 }}" class="button" value="Next" id="but_next">NEXT</a>
+        </div>
+        <table width="100%" id="emp_table" border="0">
+            <tr class="tr_header">
+                <th>Repository name</th>
+                <th>Repository description</th>
+                <th>Numbers of stars for the repo</th>
+                <th>Username and avatar of the owner</th>
+            </tr>
+            {% for item in items %}
+                <tr class="emp_table">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.stargazers_count }}</td>
+                    <td>{{ item.owner.login }}
+                        <img src="{{ item.owner.avatar_url }}" width="30" height="30"/></td>
+                </tr>
+            {%  endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        #content{
+            border:1px solid darkgrey;
+            border-radius:3px;
+            padding:5px;
+        }
+
+        /* Table */
+        #emp_table {
+            border:3px solid lavender;
+            border-radius:3px;
+        }
+
+        /* Table header */
+        .tr_header{
+            background-color:dodgerblue;
+        }
+        .tr_header th{
+            color:white;
+            padding:10px 0px;
+            letter-spacing: 1px;
+        }
+
+        /* Table rows and columns */
+        #emp_table td{
+            padding:10px;
+        }
+        #emp_table tr:nth-child(even){
+            background-color:lavender;
+            color:black;
+        }
+
+        #div_pagination{
+            width:100%;
+            margin-top:15px;
+            margin-bottom: 15px;
+            text-align:center;
+        }
+        .button{
+            border-radius:3px;
+            border:0px;
+            background-color:mediumpurple;
+            color:white;
+            padding:10px 20px;
+            letter-spacing: 1px;
+        }
+    </style>
+
+{% endblock %}
